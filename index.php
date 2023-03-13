@@ -21,7 +21,7 @@ if (!empty($_GET['oauth_verifier'])) {
     $_SESSION['verifier'] = $verifier;
 }
 if (empty($_SESSION['Tumblr_oauth_token']) || empty($_SESSION['Tumblr_oauth_token_secret'])) {
-    $callbackUrl = 'http://qwikq.tqp91.com/';
+    $callbackUrl = 'http://qwikq.site/';
     $resp = $requestHandler->request('POST', 'oauth/request_token', array(
             'oauth_callback' => $callbackUrl
         ));
