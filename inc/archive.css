@@ -1,0 +1,27 @@
+html, body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+img {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+}
+div.container {
+    display: flex;
+    flex-flow: row wrap;
+}
+.box {
+    display: inline-flex;
+    flex-flow: row wrap;
+    white-space: pre-line;
+    flex-wrap: wrap;
+}
+.box:hover, .selected {
+    border: 4px Green solid;
+}
+
+.textBox {
+    max-width: 200px;
+    max-height: 200px;
+    overflow: hidden;
+}
