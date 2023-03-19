@@ -89,17 +89,33 @@ for ($h=0; $h<$max; ($h=$h+$limit)) {
       $postContent = $photos;
     } elseif($postType == 'text') { 
       $post = $publishedPosts[$i]->trail[0]->content;
+      $postBody = $publishedPosts[$i]->body;
+      $summary = $publishedPosts[$i]->summary;
+      $isPoll = strpos($postBody, 'poll');
+      $firstImgSrc ="";
       $firstImgSrcStart = strpos($post, '<img src=');
       $firstImgSrcEnd = strpos($post, 'alt="', $firstImgSrcStart);
       $firstImgSrc = substr($post, $firstImgSrcStart, ($firstImgSrcEnd-$firstImgSrcStart));
-      if (!$firstImgSrc) {
-        $postContent = '<div class="textBox">'.$publishedPosts[$i]->trail[0]->content.'</div>';
-      } else {
-        $postContent = $firstImgSrc.'>';
-      }
+      $firstImgSrc2Start = strpos($postBody, '<img src=');
+      $firstImgSrc2End = strpos($postBody, 'data', $firstImgSrc2Start);
+      $firstImgSrc2 = substr($postBody, $firstImgSrc2Start, ($firstImgSrc2End-$firstImgSrc2Start));
+      if (!$firstImgSrc || !$firstImgSrc2) {
+        if (!$firstImgSrc2){
+          $postContent = '<div class="textBox">'.$publishedPosts[$i]->trail[0]->content.'</div>';
+        } else {
+          $firstImgSrc = $firstImgSrc2;
+        }
+      } 
+      if ($firstImgSrc !== "")
+        {$postContent = $firstImgSrc.'>';}
+      
     } elseif($postType == 'answer') {
       $questionText = '<div class="textBox">'.$publishedPosts[$i]->question.'</div>';
       $postContent = $questionText;
+    }
+    if ($isPoll>0) {
+      $isPoll = 1;
+      $postContent = "POLL:<br>".$summary;
     }
     $postBox = '<a href="queuePost.php?blogName='.$blogName.'&postId='.$postId.'&reblogKey='.$postReblogKey.'" target="_BLANK">'.$postContent.'</a>';
     array_push($postData, $postBox); 

@@ -98,24 +98,8 @@ input[type=text], input[type=password] {
 @media only screen and (max-width: 750px), only screen and (max-device-width: 750px) {
     /* For mobile phones: */
     [class="box"] {
+      width: 25%;
       max-width: 25%;
-    }
-    [class="menu"] {
-        font-size: 2em;
-      }
-    [class="button"] {
-        width: 100%;
-      }
-    a {
-        display: block;
-        margin: 0;
-        padding: 0;
-      }
-  }
-  @media only screen and (max-width: 350px), only screen and (max-device-width: 350px) {
-    /* For mobile phones: */
-    [class="box"] {
-      max-width: 33% !important;
     }
     [class="menu"] {
         font-size: 2em;
