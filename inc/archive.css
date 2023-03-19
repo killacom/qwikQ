@@ -1,27 +1,131 @@
+*, *:before, *:after {
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
 html, body {
     font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    align-self: center;
+}
+h1 {
+    margin: 15px auto;
+    padding: 10px 20px;
+    color: white;
+    background-color: #34526f;
+    border: 2px solid #0068ad;
+    width: 100%;
+    text-align: center;
 }
 img {
-    max-width: 200px;
-    max-height: 200px;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
 }
-div.container {
+.button {
+    font-size: 1.5em;
+    margin: 15px auto;
+    padding: 10px 20px;
+    color: white;
+    background-color: #34526f;
+    border: 2px solid #0068ad;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border-radius: 5px;
+    max-width: 100%;
+    text-decoration: none;
+}
+.smButton {
+    font-size: 1em;
+    margin: 15px auto;
+    padding: 10px 20px;
+    color: white;
+    background-color: #34526f;
+    border: 2px solid #0068ad;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border-radius: 5px;
+    text-decoration: none;
+}
+input.button:hover, a:hover {
+    background-color: white;
+    color: #34526f;
+}
+input[type=text], input[type=password] {
+    font-size: 1.5em;
+    padding: 5px 10px;
+    text-align: left;
+    max-width: 500px;
+    margin: auto;
+}
+.container {
     display: flex;
     flex-flow: row wrap;
+    width: 100%;
+}
+.menu {
+    display: flexbox;
+    width: 100%;
+    align-self: center;
+    text-align: center;
+}
+.menuItem {
+    display: block;
+    width: 100%;
+    text-align: center;
+    align-items: center;
 }
 .box {
     display: inline-flex;
     flex-flow: row wrap;
     white-space: pre-line;
     flex-wrap: wrap;
+    max-width: 10%;
+    max-height: 350px;
+    overflow: hidden;
+    outline: 1px #0068ad solid;
+    outline-offset: -1px;
 }
 .box:hover, .selected {
-    border: 4px Green solid;
+    outline: 4px Green solid;
+    outline-offset: -4px;
 }
 
 .textBox {
-    max-width: 200px;
-    max-height: 200px;
+
     overflow: hidden;
 }
+
+@media only screen and (max-width: 750px), only screen and (max-device-width: 750px) {
+    /* For mobile phones: */
+    [class="box"] {
+      max-width: 25%;
+    }
+    [class="menu"] {
+        font-size: 2em;
+      }
+    [class="button"] {
+        width: 100%;
+      }
+    a {
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+  }
+  @media only screen and (max-width: 350px), only screen and (max-device-width: 350px) {
+    /* For mobile phones: */
+    [class="box"] {
+      max-width: 33% !important;
+    }
+    [class="menu"] {
+        font-size: 2em;
+      }
+    [class="button"] {
+        width: 100%;
+      }
+    a {
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+  }

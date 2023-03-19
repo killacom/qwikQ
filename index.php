@@ -2,6 +2,17 @@
 session_start();
 require_once 'vendor/autoload.php';
 require_once '../config/qqConfig.php';
+//require_once 'qqConfig.php';
+$header = '
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8">
+      <link rel="stylesheet" href="inc/archive.css" type="text/css">
+    </head>
+    <body>
+      <div class="container">';
+$body = '<h1>QwikQ.Site<br>Click on a post to add it to your tumblr queue!</h1><br>';
 $tmpToken = isset($_SESSION['tmp_oauth_token'])? $_SESSION['tmp_oauth_token'] : null;
 $tmpTokenSecret = isset($_SESSION['tmp_oauth_token_secret'])? $_SESSION['tmp_oauth_token_secret'] : null;
 $client = new Tumblr\API\Client($consumerKey, $consumerSecret, $tmpToken, $tmpTokenSecret);
@@ -30,9 +41,8 @@ if (empty($_SESSION['Tumblr_oauth_token']) || empty($_SESSION['Tumblr_oauth_toke
     $_SESSION['tmp_oauth_token'] = $keys['oauth_token'];
     $_SESSION['tmp_oauth_token_secret'] = $keys['oauth_token_secret'];
     $url = 'https://www.tumblr.com/oauth/authorize?oauth_token=' . $keys['oauth_token'];
-    echo '<a href="'.$url.'">Connect Tumblr</a>';
-    exit;
-}
+    $body = '<div class="menu"><a href="'.$url.'">Connect Tumblr</a></div>';
+} else {
 $client = new Tumblr\API\Client(
     $consumerKey,
     $consumerSecret,
@@ -96,31 +106,36 @@ for ($h=0; $h<$max; ($h=$h+$limit)) {
   }
   $offset+=$limit;
 }
-?>
-<!DOCTYPE html>
-	<html lang="en">
-		<head>
-			<meta charset="utf-8">
-      <link rel="stylesheet" href="inc/archive.css" type="text/css">
-    </head>
-    <body>
-      <div class="container">
-<?php
+
 for ($i=0; $i<count($postData); $i++) {
-  echo '<div class="box">'.$postData[$i].'</div>';
+  $body.= '<div class="box">'.$postData[$i].'</div>';
 }
-echo'</div>
-      <div>
-        <a href="index.php?blogName='.$displayBlogName.'&offset='.$offset.'">Next Page</a><br>
-        View somoeone elses blog: 
-          <form action="index.php" method="POST">
-            <input type="text" name="inputBlogName">
-            <input type="submit" value="submit">
-          </form>
-        <br> <a href="index.php">Home</a>
-        <br> <a href="logout.php">Logout</a>
+$body.='</div>
+      <div class="menu">
+        <div class="menuItem">
+          <form action="index.php" method="GET">
+            <input type="hidden" name="blogName" value="'.$displayBlogName.'">
+            <input type="hidden" name="offset" value="'.$offset.'">
+            <input class="button" type="submit" value="Next Page">
+          </form><br>
+        </div>
+        <div class="menuItem">
+          <h2>View someone elses blog:</h2>
+            <form action="index.php" method="POST">
+              <input type="text" name="inputBlogName">.tumblr.com<br>
+              <input class="smButton" type="submit" value="Go!">
+            </form>
+        </div>
+        <div class="menuItem">
+          <br> <a class="button" href="index.php">Home</a>
+        </div>
+        <div class="menuItem">
+          <br> <a class="button" href="logout.php">Logout</a>
+        </div>
       </div>
       ';
+        }
+echo $header.$body;
       ?>
 </body>
 </html>
